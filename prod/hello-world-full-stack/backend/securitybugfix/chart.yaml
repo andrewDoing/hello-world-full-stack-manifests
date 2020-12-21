@@ -1,0 +1,47 @@
+---
+
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-securitybugfix
+spec:
+  selector:
+    matchLabels:
+      app: backend-securitybugfix
+      tier: backend
+      track: stable
+  replicas: 
+  template:
+    metadata:
+      labels:
+        app: backend-securitybugfix
+        tier: backend
+        track: stable
+    spec:
+      containers:
+        - name: backend-securitybugfix
+          image: hellorings.azurecr.io/hello-world-full-stack-backend:securitybugfix-20201013.3
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 9000
+---
+
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-securitybugfix
+  labels:
+    app: backend-securitybugfix
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      name: http
+      targetPort: 9000
+  selector:
+    app: backend-securitybugfix
+
+

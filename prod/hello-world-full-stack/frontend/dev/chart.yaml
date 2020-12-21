@@ -1,0 +1,51 @@
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-dev
+spec:
+  selector:
+    app: frontend-dev
+    tier: frontend
+  ports:
+  - protocol: "TCP"
+    port: 80
+    targetPort: 80
+  type: LoadBalancer
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  frontend-dev
+spec:
+  selector:
+    matchLabels:
+      app: frontend-dev
+      tier: frontend
+      track: stable
+  replicas:  
+  template:
+    metadata:
+      labels:
+        app: frontend-dev
+        tier: frontend
+        track: stable
+    spec:
+      containers:
+      - name: frontend-dev
+        image: hellorings.azurecr.io/hello-world-full-stack-frontend:dev-20201202.1
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: REACT_APP_BACKEND_URL
+          valueFrom:
+            configMapKeyRef:
+              name: config
+              key: REACT_APP_BACKEND_URL
+        lifecycle:
+          preStop:
+            exec:
+              command: ["/usr/sbin/nginx","-s","quit"]
+
+

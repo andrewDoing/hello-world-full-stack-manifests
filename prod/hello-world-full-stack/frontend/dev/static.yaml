@@ -1,0 +1,26 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: frontend-dev
+spec:
+  routes:
+    - kind: Rule
+      match: 'PathPrefix(`/frontend`) && Headers(`Ring`, `dev`)'
+      middlewares:
+        - name: frontend-dev
+      services:
+        - name: frontend-dev
+          port: 80
+
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: frontend-dev
+spec:
+  stripPrefix:
+    forceSlash: false
+    prefixes:
+      - /frontend
+

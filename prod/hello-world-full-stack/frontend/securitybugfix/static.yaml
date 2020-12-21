@@ -1,0 +1,26 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: frontend-securitybugfix
+spec:
+  routes:
+    - kind: Rule
+      match: 'PathPrefix(`/frontend`) && Headers(`Ring`, `securitybugfix`)'
+      middlewares:
+        - name: frontend-securitybugfix
+      services:
+        - name: frontend-securitybugfix
+          port: 80
+
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: frontend-securitybugfix
+spec:
+  stripPrefix:
+    forceSlash: false
+    prefixes:
+      - /frontend
+

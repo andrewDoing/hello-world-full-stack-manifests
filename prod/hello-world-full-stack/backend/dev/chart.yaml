@@ -1,0 +1,47 @@
+---
+
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-dev
+spec:
+  selector:
+    matchLabels:
+      app: backend-dev
+      tier: backend
+      track: stable
+  replicas: 
+  template:
+    metadata:
+      labels:
+        app: backend-dev
+        tier: backend
+        track: stable
+    spec:
+      containers:
+        - name: backend-dev
+          image: hellorings.azurecr.io/hello-world-full-stack-backend:dev-20201203.1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 9000
+---
+
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-dev
+  labels:
+    app: backend-dev
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      name: http
+      targetPort: 9000
+  selector:
+    app: backend-dev
+
+
