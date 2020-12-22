@@ -35,7 +35,7 @@ spec:
     spec:
       containers:
       - name: frontend-dev
-        image: hellorings.azurecr.io/hello-world-full-stack-frontend:dev-20201202.1
+        image: samiyaakhtar/helloworldfullstack:client
         imagePullPolicy: IfNotPresent
         env:
         - name: REACT_APP_BACKEND_URL
