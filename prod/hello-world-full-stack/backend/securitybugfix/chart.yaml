@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: backend-securitybugfix
-          image: hellorings.azurecr.io/hello-world-full-stack-backend:securitybugfix-20201013.3
+          image: samiyaakhtar/helloworldfullstack:api
           imagePullPolicy: IfNotPresent
           ports:
             - name: http

@@ -35,7 +35,7 @@ spec:
     spec:
       containers:
       - name: frontend-securitybugfix
-        image: hellorings.azurecr.io/hello-world-full-stack-frontend:securitybugfix-20200723.4
+        image: samiyaakhtar/helloworldfullstack:client
         imagePullPolicy: IfNotPresent
         env:
         - name: REACT_APP_BACKEND_URL

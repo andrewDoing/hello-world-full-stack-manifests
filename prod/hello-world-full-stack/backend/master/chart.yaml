@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: backend-master
-          image: hellorings.azurecr.io/hello-world-full-stack-backend:master-20201013.4
+          image: samiyaakhtar/helloworldfullstack:api
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
